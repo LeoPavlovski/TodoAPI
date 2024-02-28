@@ -13,6 +13,9 @@ class TodoController extends Controller
             $todos = Todo::all();
             return todoResource::collection($todos);
      }
+     public function show(Todo $todo){
+          return new todoResource($todo);
+     }
      public function store (Request $request){
           $validatedData =  $request ->validate([
              'name'=>'required|string',
@@ -28,7 +31,7 @@ class TodoController extends Controller
               'name'=>'string',
               'completed'=>'boolean'
           ]);
-          $todo ->update($validatedData);
+          $todo->update($validatedData);
           return new todoResource($todo);
      }
      public function destroy(Todo $todo){
